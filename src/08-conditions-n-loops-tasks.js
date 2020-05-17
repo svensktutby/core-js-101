@@ -136,8 +136,13 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  return !(
+    rect1.top >= (rect2.top + rect2.height)
+    || rect2.top >= (rect1.top + rect1.height)
+    || rect1.left >= (rect2.left + rect2.width)
+    || rect2.left >= (rect1.left + rect1.width)
+  );
 }
 
 
@@ -167,8 +172,13 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const { center, radius } = circle;
+  const { x, y } = point;
+  const dx = x - center.x;
+  const dy = y - center.y;
+
+  return Math.hypot(dx, dy) < radius;
 }
 
 
@@ -183,8 +193,10 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  return str
+    .split('')
+    .find((item, idx, array) => (array.indexOf(item) === array.lastIndexOf(item) ? item : null));
 }
 
 
@@ -210,8 +222,12 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  return `${isStartIncluded
+    ? '['
+    : '('}${Math.min(a, b)}, ${Math.max(a, b)}${isEndIncluded
+    ? ']'
+    : ')'}`;
 }
 
 
@@ -227,8 +243,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -244,8 +260,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return +`${num}`.split('').reverse().join('');
 }
 
 
@@ -338,8 +354,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 

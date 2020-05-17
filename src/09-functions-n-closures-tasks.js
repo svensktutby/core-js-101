@@ -24,10 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  // eslint-disable-next-line func-names
-  return function (x) {
-    return f(g(x));
-  };
+  return (x) => f(g(x));
 }
 
 
@@ -47,8 +44,9 @@ function getComposition(f, g) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  // eslint-disable-next-line no-restricted-properties
+  return (x) => Math.pow(x, exponent);
 }
 
 
@@ -65,8 +63,12 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  return (x) => args.reduce((acc, item, idx) => {
+    // eslint-disable-next-line no-param-reassign
+    acc += args[idx] * x ** (args.length - idx - 1);
+    return acc;
+  }, 0);
 }
 
 
@@ -84,8 +86,9 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const memo = func();
+  return () => memo;
 }
 
 
@@ -150,8 +153,8 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...args2) => fn(...args1, ...args2);
 }
 
 
@@ -172,8 +175,12 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let IdGenerator = -1;
+  return () => {
+    IdGenerator += 1;
+    return IdGenerator + startFrom;
+  };
 }
 
 
